@@ -1,10 +1,11 @@
-// START GAME
+// KEEP TRACK OF WINS
 let computerWins = 0;
 let playerWins = 0;
+
+// START GAME
 game();
 
 function game() {
-    // KEEP TRACK OF WINS
     // RUN 5 ROUNDS
     for (round = 1; round<=5; round++) {
         console.log("Round " + round + "!")
@@ -14,7 +15,7 @@ function game() {
         console.log("Computer picked " + computer + ".")
         play(computer, user);
     }
-    // CHECK FOR WINNER
+    // CHECKS FOR WINNER
     if (computerWins > playerWins) {
         console.log("Computer WON!");
         console.log(`Computer WON ${computerWins} round(s) out of 5.`);
@@ -48,8 +49,6 @@ function computerPlay() {
     }
 }
 
-
-
 // ASK USER FOR A CHOICE
 function userPlay() {
     let userPick = prompt("Type your choice: 'Rock', 'Paper' or 'Scissors'.")
@@ -72,13 +71,13 @@ function userPlay() {
     }
 }
 
+// TRACKS ROUND WINNERS
 function play(computerChoice, playerChoice) {
     if (playerChoice === computerChoice) {
         console.log("It's a draw!")
     }
     else {
         console.log(playerChoice + " " + computerChoice);
-        let outcome;
         switch (playerChoice + " " + computerChoice) {
             case "Rock Paper":
                 console.log("You lose! Paper beats Rock!");
