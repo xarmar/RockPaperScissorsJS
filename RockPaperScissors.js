@@ -28,7 +28,9 @@ function game() {
         console.log(`Computer WON ${computerWins} round(s) out of 5.`);
     }
     else if (computerWins == playerWins) {
-        console.log("It's a DRAW!")
+        console.log("It's a DRAW!");
+        console.log(`Player WON ${playerWins} round(s) out of 5.`);
+        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
     }
 }
 
@@ -65,12 +67,10 @@ function userPlay() {
         return playerChoice;
     }
     else {
-        playerChoice = "Error";
-        return playerChoice;
-
+        alert("ONLY 'Rock', 'Paper' and 'Scissors' allowed.");
+        return userPlay();
     }
 }
-
 // TRACKS ROUND WINNERS
 function play(computerChoice, playerChoice) {
     if (playerChoice === computerChoice) {
