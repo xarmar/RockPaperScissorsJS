@@ -1,36 +1,40 @@
-// KEEP TRACK OF WINS
+//Keeps Track of Rounds
+let roundNumber = 1;
+const round = document.querySelector("#round");
+round.innerText = roundNumber;
+
+// Keep Track of Wins
 let computerWins = 0;
 let playerWins = 0;
 
-// START GAME
-game();
+// Listens for "clicks" on Rock, Paper, Scissors elements.
+const userChoice = document.querySelectorAll(".userChoice");
+const options = Array.from(userChoice);
+options.forEach(option => 
+    option.addEventListener("click", initiateRound)
+);
 
-function game() {
-    // RUN 5 ROUNDS
-    for (round = 1; round<=5; round++) {
-        console.log("Round " + round + "!")
-        let computer = computerPlay();
-        let user = userPlay();
-        console.log("You picked " + user + ".")
-        console.log("Computer picked " + computer + ".")
-        play(computer, user);
-    }
-    // CHECKS FOR WINNER
-    if (computerWins > playerWins) {
-        console.log("Computer WON!");
-        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
-        console.log(`Player WON ${playerWins} round(s) out of 5.`);
+function initiateRound(e) {
+    let userPick = e.toElement.id;
+    let playerChoice = userPlay(userPick);
+    let computerChoice = computerPlay();
+    playRound(computerChoice, playerChoice);
+    let feedback = document.querySelector(".feedbackContainer");
+    feedback.classList.add("opacityAnimation");
+}
 
+function userPlay(userPick) {
+    if (userPick.toUpperCase() === "ROCK") {
+        let playerChoice = "Rock";
+        return playerChoice;
     }
-    else if (computerWins < playerWins) {
-        console.log("You WON!");
-        console.log(`Player WON ${playerWins} round(s) out of 5.`);
-        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+    else if (userPick.toUpperCase() === "PAPER") {    
+        let playerChoice = "Paper";
+        return playerChoice;
     }
-    else if (computerWins == playerWins) {
-        console.log("It's a DRAW!");
-        console.log(`Player WON ${playerWins} round(s) out of 5.`);
-        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+    else if (userPick.toUpperCase() === "SCISSORS") {
+        let playerChoice = "Scissors";
+        return playerChoice;
     }
 }
 
@@ -51,30 +55,13 @@ function computerPlay() {
     }
 }
 
-// ASK USER FOR A CHOICE
-function userPlay() {
-    let userPick = prompt("Type your choice: 'Rock', 'Paper' or 'Scissors'.")
-    if (userPick.toUpperCase() === "ROCK") {
-        let playerChoice = "Rock";
-        return playerChoice;
-    }
-    else if (userPick.toUpperCase() === "PAPER") {    
-        let playerChoice = "Paper";
-        return playerChoice;
-    }
-    else if (userPick.toUpperCase() === "SCISSORS") {
-        let playerChoice = "Scissors";
-        return playerChoice;
-    }
-    else {
-        alert("ONLY 'Rock', 'Paper' and 'Scissors' allowed.");
-        return userPlay();
-    }
-}
+
 // TRACKS ROUND WINNERS
-function play(computerChoice, playerChoice) {
+function playRound(computerChoice, playerChoice) {
     if (playerChoice === computerChoice) {
         console.log("It's a draw!")
+        roundNumber++;
+        round.innerText = roundNumber;
     }
     else {
         console.log(playerChoice + " " + computerChoice);
@@ -82,31 +69,64 @@ function play(computerChoice, playerChoice) {
             case "Rock Paper":
                 console.log("You lose! Paper beats Rock!");
                 computerWins++;
+                roundNumber++;
+                round.innerText = roundNumber;
                 break;
             case "Rock Scissors":
                 console.log("You win! Rock beats Scissors!");
                 playerWins++;
+                roundNumber++;
+                round.innerText = roundNumber;
                 break;
             case "Paper Rock":
                 console.log("You win! Paper beats Rock!");
                 playerWins++;
+                roundNumber++;
+                round.innerText = roundNumber;
                 break;
             case "Paper Scissors":
                 console.log("You lose! Scissors beats Paper");
                 computerWins++;
+                roundNumber++;
+                round.innerText = roundNumber;
                 break;
             case "Scissors Rock":
                 console.log("You lose! Rock beats Scissors");
                 computerWins++;
+                roundNumber++;
+                round.innerText = roundNumber;
                 break;
             case "Scissors Paper":
                 console.log("You win! Scissors beats Paper");
                 playerWins++;
+                roundNumber++;
+                round.innerText = roundNumber;
                 break;
 
             default:
                 console.log("ERROR");
         }
     }
-    
 }
+
+function winner(computerWins, playerWins) {
+    // CHECKS FOR WINNER
+    if (computerWins > playerWins) {
+        console.log("Computer WON!");
+        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+        console.log(`Player WON ${playerWins} round(s) out of 5.`);
+
+    }
+    else if (computerWins < playerWins) {
+        console.log("You WON!");
+        console.log(`Player WON ${playerWins} round(s) out of 5.`);
+        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+    }
+    else if (computerWins == playerWins) {
+        console.log("It's a DRAW!");
+        console.log(`Player WON ${playerWins} round(s) out of 5.`);
+        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+    }
+}
+
+
