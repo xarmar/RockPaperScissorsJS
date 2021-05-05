@@ -3,15 +3,20 @@ body {
     color: #F5F4E9;
 }
 
-#gameTitle {
+.flex {
     display: flex;
     flex-direction: column;
     align-items:center;
-    margin: 20px 15px 20px 15px;
+    margin: 20px;
     max-width: 100%;
 }
 
-#gametitle > h1, #gameTitle > p {
+.flex > img {
+    width: 15%;
+    height: 15%;
+}
+
+.flex > p {
     background-color: #536d5d;
     padding: 15px;
     text-align: center;
@@ -21,31 +26,30 @@ body {
 
 .userOptions {
     margin-top: 5%;
+    margin-left: 5%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     max-width: 100%;
 }
 
 .userOptions p {
-    font-size: 20px;
+    margin: 5px 15px 10px 5px;
     text-align: center;
-    margin: 0px 10px 0px 10px;
-    padding: 10px;
-    max-width: 90%;
+    font-size: 20px;
+    padding: 1%;
+    max-width: 20%;
     animation-name: ChooseWeapon;
     animation-duration: 4s;
     animation-iteration-count: 1;
-    max-width: 100%;
     border: solid 1px transparent;
 }
 
 .userChoice {
     background-color: #2D3047;
     text-align: center;
-    margin: 0px 15px 0px 15px;
+    margin: 5px 15px 10px 5px;
     padding: 1%;
-    width: 40%;
     max-width: 20%;
     border: 3px solid #048A81;
 }
@@ -68,19 +72,20 @@ body {
 .feedbackContainer {
     opacity: 0%;
     margin-top: 5%;
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    max-width:fit-content;
-    background-color: #2D3047;
-    text-align: center;
-    padding: 2%;
+    width: 50%;
+    padding: 1%;
     background-color: #048A81;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: fit-content;
 }
+
 
 .opacityAnimation {
     animation-name: opacity;
-    animation-duration: 6s;
+    animation-duration: 4.5s;
     animation-iteration-count: 1s;
 }
 
@@ -96,4 +101,19 @@ body {
     100% {
         opacity: 0%;
     }
+}
+
+.flex {
+display: flex;
+align-items: right;
+}
+
+table {
+    flex-direction: column;
+    margin: auto;
+}
+
+tr > th {
+    background-color: #536d5d;
+    padding: 15px 10px 15px 10px;
 }

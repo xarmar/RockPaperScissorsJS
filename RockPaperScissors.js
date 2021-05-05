@@ -6,10 +6,41 @@ round.innerText = roundNumber;
 // Keep Track of Wins
 let computerWins = 0;
 let playerWins = 0;
+let draw = 0;
+
+//Listens for image hover
+const logo = document.querySelector("#logo");
+logo.addEventListener("mouseenter", gif);
+logo.addEventListener("mouseleave", png);
+
+function gif() {
+    logo.src = "Rock Paper Scissors.gif";
+}
+
+function png() {
+    console.log("left");
+    logo.src = "Rock Paper Scissors.png";
+}
+
 
 // Listens for "clicks" on Rock, Paper, Scissors elements.
 const userChoice = document.querySelectorAll(".userChoice");
 const options = Array.from(userChoice);
+
+// Table that tracks wins and draws
+const adversaryWins = document.querySelector("#adversaryWins");
+adversaryWins.innerText = computerWins;
+const draws = document.querySelector("#draws");
+draws.innerText = draw;
+const userWins = document.querySelector("#userWins");
+userWins.innerText = playerWins;
+
+// Feedback Div that shows result of rounds
+const feedback = document.querySelector(".feedback");
+const feedbackContainer = document.querySelector(".feedbackContainer");
+const winnerContainer = document.querySelector(".winnerContainer");
+
+
 options.forEach(option => 
     option.addEventListener("click", initiateRound)
 );
@@ -19,8 +50,14 @@ function initiateRound(e) {
     let playerChoice = userPlay(userPick);
     let computerChoice = computerPlay();
     playRound(computerChoice, playerChoice);
-    let feedback = document.querySelector(".feedbackContainer");
-    feedback.classList.add("opacityAnimation");
+    feedbackContainer.classList.remove("opacityanimation");
+    feedbackContainer.classList.add("opacityanimation");
+    adversaryWins.innerText = computerWins;
+    draws.innerText = draw;
+    userWins.innerText = playerWins;
+    if (roundNumber === 6) {
+        winner(computerWins, playerWins);
+    }
 }
 
 function userPlay(userPick) {
@@ -60,6 +97,7 @@ function computerPlay() {
 function playRound(computerChoice, playerChoice) {
     if (playerChoice === computerChoice) {
         console.log("It's a draw!")
+        draw++;
         roundNumber++;
         round.innerText = roundNumber;
     }
@@ -67,37 +105,37 @@ function playRound(computerChoice, playerChoice) {
         console.log(playerChoice + " " + computerChoice);
         switch (playerChoice + " " + computerChoice) {
             case "Rock Paper":
-                console.log("You lose! Paper beats Rock!");
+                feedback.innerText = "Round " + roundNumber + " You lost! Paper beats Rock!";
                 computerWins++;
                 roundNumber++;
                 round.innerText = roundNumber;
                 break;
             case "Rock Scissors":
-                console.log("You win! Rock beats Scissors!");
+                feedback.innerText = "Round " + roundNumber + ": You won! Rock beats Scissors!";
                 playerWins++;
                 roundNumber++;
                 round.innerText = roundNumber;
                 break;
             case "Paper Rock":
-                console.log("You win! Paper beats Rock!");
+                feedback.innerText = "Round " + roundNumber + ": You won! Paper beats Rock!";
                 playerWins++;
                 roundNumber++;
                 round.innerText = roundNumber;
                 break;
             case "Paper Scissors":
-                console.log("You lose! Scissors beats Paper");
+                feedback.innerText = "Round " + roundNumber + ": You lost! Scissors beats Paper";
                 computerWins++;
                 roundNumber++;
                 round.innerText = roundNumber;
                 break;
             case "Scissors Rock":
-                console.log("You lose! Rock beats Scissors");
+                feedback.innerText = "Round " + roundNumber + ": You lost! Rock beats Scissors";
                 computerWins++;
                 roundNumber++;
                 round.innerText = roundNumber;
                 break;
             case "Scissors Paper":
-                console.log("You win! Scissors beats Paper");
+                feedback.innerText = "Round " + roundNumber +  ": You won! Scissors beats Paper";
                 playerWins++;
                 roundNumber++;
                 round.innerText = roundNumber;
@@ -112,18 +150,18 @@ function playRound(computerChoice, playerChoice) {
 function winner(computerWins, playerWins) {
     // CHECKS FOR WINNER
     if (computerWins > playerWins) {
-        console.log("Computer WON!");
+        winner.innerText = "Computer WON!";
         console.log(`Computer WON ${computerWins} round(s) out of 5.`);
         console.log(`Player WON ${playerWins} round(s) out of 5.`);
 
     }
     else if (computerWins < playerWins) {
-        console.log("You WON!");
+        winner.innerText = "You WON!";
         console.log(`Player WON ${playerWins} round(s) out of 5.`);
         console.log(`Computer WON ${computerWins} round(s) out of 5.`);
     }
     else if (computerWins == playerWins) {
-        console.log("It's a DRAW!");
+        winner.innerText = "It's a DRAW!";
         console.log(`Player WON ${playerWins} round(s) out of 5.`);
         console.log(`Computer WON ${computerWins} round(s) out of 5.`);
     }

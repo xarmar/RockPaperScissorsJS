@@ -1,19 +1,41 @@
 <html>
     <link rel="stylesheet" href="/RockPaperScissors.css">
     <body>
-        <div id="gameTitle">
-            <h1> Man vs Machine </h1>
-            <p> Rock Paper Scissors | Round <span id="round"></span>/5</p>
+        <div class="flex">
+            <img id="logo" src="Rock Paper Scissors.png">
         </div>
         <div class="userOptions">
             <p> Choose Your Weapon:</p>
             <div class="userChoice" id="rock"> Rock </div>
             <div class="userChoice" id="paper"> Paper </div>
             <div class="userChoice"id="scissors"> Scissors</span> </div>
+            <div class="flex">
+                <p> Round <span id="round"></span>/5</p>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>COMPUTER</th>
+                        <th>DRAW</th>
+                        <th>USER</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th id="adversaryWins"></th>
+                            <th id="draws"></th>
+                            <th id="userWins"></th>
+                          </tr>
+                    </tbody>
+                </table>  
+            </div>
+                  
         </div>
-        <div class="feedbackContainer">
-            <div class="feedback"> Feedback Text Will Be Here </div>
+        <div class ="feedbackContainer">
+            <div class="feedback"></div>
         </div>
+
+
+
     </body>
     <script src="RockPaperScissors.js"></script>
 </html>
