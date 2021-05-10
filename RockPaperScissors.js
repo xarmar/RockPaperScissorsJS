@@ -61,14 +61,14 @@ function initiateRound(e) {
     playRound(computerChoice, playerChoice);
     if (roundNumber < 6) {
     feedbackContainer.classList.add("opacityAnimation");
-    feedbackContainer.addEventListener('animationend', remove);
+    feedbackContainer.addEventListener('animationend', removeOpacityAnimation);
     }
     if (roundNumber === 6) {
         winner(computerWins, playerWins);
     }
 }
 
-function remove() {
+function removeOpacityAnimation() {
     feedbackContainer.classList.remove("opacityAnimation");
 }
 
@@ -111,9 +111,7 @@ function playRound(computerChoice, playerChoice) {
         if (playerChoice === computerChoice) {
             feedback.innerText = "Round " + roundNumber + ": It's a draw!";
             draw++;
-            if (roundNumber < 6) {
-                roundNumber++;
-            };
+            roundNumber++;
             round.innerText = roundNumber;
             updateScoreTable();
         }
@@ -122,54 +120,42 @@ function playRound(computerChoice, playerChoice) {
                 case "Rock Paper":
                     feedback.innerText = "Round " + roundNumber + ": You lost! Paper beats Rock!";
                     computerWins++;
-                    if (roundNumber < 6) {
-                        roundNumber++;
-                    }
+                    roundNumber++;
                     round.innerText = roundNumber;
                     updateScoreTable();
                     break;
                 case "Rock Scissors":
                     feedback.innerText = "Round " + roundNumber + ": You won! Rock beats Scissors!";
                     playerWins++;
-                    if (roundNumber < 6) {
-                        roundNumber++;
-                    };
+                    roundNumber++;
                     round.innerText = roundNumber;
                     updateScoreTable();
                     break;
                 case "Paper Rock":
                     feedback.innerText = "Round " + roundNumber + ": You won! Paper beats Rock!";
                     playerWins++;
-                    if (roundNumber < 6) {
-                        roundNumber++;
-                    };
+                    roundNumber++;
                     round.innerText = roundNumber;
                     updateScoreTable();
                     break;
                 case "Paper Scissors":
                     feedback.innerText = "Round " + roundNumber + ": You lost! Scissors beats Paper";
                     computerWins++;
-                    if (roundNumber < 6) {
-                        roundNumber++;
-                    };
+                    roundNumber++;
                     round.innerText = roundNumber;
                     updateScoreTable();
                     break;
                 case "Scissors Rock":
                     feedback.innerText = "Round " + roundNumber + ": You lost! Rock beats Scissors";
                     computerWins++;
-                    if (roundNumber < 6) {
-                        roundNumber++;
-                    };
+                    roundNumber++;
                     round.innerText = roundNumber;
                     updateScoreTable();
                     break;
                 case "Scissors Paper":
                     feedback.innerText = "Round " + roundNumber +  ": You won! Scissors beats Paper";
                     playerWins++;
-                    if (roundNumber < 6) {
-                        roundNumber++;
-                    };
+                    roundNumber++;
                     round.innerText = roundNumber;
                     updateScoreTable();
                     break;
