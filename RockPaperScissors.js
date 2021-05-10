@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-
-//Keeps Track of Rounds
+//Keep Track of Rounds
 let roundNumber = 1;
 let round = document.querySelector("#round");
 round.innerText = roundNumber;
@@ -38,9 +37,9 @@ userWins.innerText = playerWins;
 // Feedback Div that shows the result of each round
 const feedback = document.querySelector(".feedback");
 const feedbackContainer = document.querySelector(".feedbackContainer");
-// Play Button Div
-const startAgain = document.querySelector(".startAgain");
 
+// "Play Again" Div for Button
+const startAgain = document.querySelector(".startAgain");
 
 // Listen for "clicks" on Rock, Paper, Scissors elements and run "initiateRound" on Click.
 const userChoice = document.querySelectorAll(".userChoice");
@@ -64,37 +63,13 @@ function initiateRound(e) {
     feedbackContainer.classList.add("opacityAnimation");
     feedbackContainer.addEventListener('animationend', remove);
     }
-    //Update Score Table
-    adversaryWins.innerText = computerWins;
-    draws.innerText = draw;
-    userWins.innerText = playerWins;
-    // Remove class "opacityanimation"
     if (roundNumber === 6) {
         winner(computerWins, playerWins);
-        startAgain.classList.add("startAgainVisible");
-        button = document.querySelector(".startAgainVisible")
-        button.addEventListener("click", reset);
     }
 }
 
 function remove() {
     feedbackContainer.classList.remove("opacityAnimation");
-}
-
-function reset() {
-    roundNumber = 1;
-    computerWins = 0;
-    playerWins = 0;
-    draw = 0;
-    adversaryWins.innerText = computerWins;
-    draws.innerText = draw;
-    userWins.innerText = playerWins;
-    tableHead.innerHTML = "Round <span id='round'></span>/5";
-    let round = document.querySelector("#round");
-    round.innerText = roundNumber;
-    tableHead.classList.remove("results");
-    startAgain.classList.remove("startAgainVisible");
-    console.log(startAgain);
 }
 
 
@@ -130,7 +105,6 @@ function computerPlay() {
     }
 }
 
-
 // TRACKS ROUND WINNERS
 function playRound(computerChoice, playerChoice) {
     if (roundNumber < 6) {
@@ -141,6 +115,7 @@ function playRound(computerChoice, playerChoice) {
                 roundNumber++;
             };
             round.innerText = roundNumber;
+            updateScoreTable();
         }
         else {
             switch (playerChoice + " " + computerChoice) {
@@ -151,6 +126,7 @@ function playRound(computerChoice, playerChoice) {
                         roundNumber++;
                     }
                     round.innerText = roundNumber;
+                    updateScoreTable();
                     break;
                 case "Rock Scissors":
                     feedback.innerText = "Round " + roundNumber + ": You won! Rock beats Scissors!";
@@ -159,6 +135,7 @@ function playRound(computerChoice, playerChoice) {
                         roundNumber++;
                     };
                     round.innerText = roundNumber;
+                    updateScoreTable();
                     break;
                 case "Paper Rock":
                     feedback.innerText = "Round " + roundNumber + ": You won! Paper beats Rock!";
@@ -167,6 +144,7 @@ function playRound(computerChoice, playerChoice) {
                         roundNumber++;
                     };
                     round.innerText = roundNumber;
+                    updateScoreTable();
                     break;
                 case "Paper Scissors":
                     feedback.innerText = "Round " + roundNumber + ": You lost! Scissors beats Paper";
@@ -175,6 +153,7 @@ function playRound(computerChoice, playerChoice) {
                         roundNumber++;
                     };
                     round.innerText = roundNumber;
+                    updateScoreTable();
                     break;
                 case "Scissors Rock":
                     feedback.innerText = "Round " + roundNumber + ": You lost! Rock beats Scissors";
@@ -183,6 +162,7 @@ function playRound(computerChoice, playerChoice) {
                         roundNumber++;
                     };
                     round.innerText = roundNumber;
+                    updateScoreTable();
                     break;
                 case "Scissors Paper":
                     feedback.innerText = "Round " + roundNumber +  ": You won! Scissors beats Paper";
@@ -191,6 +171,7 @@ function playRound(computerChoice, playerChoice) {
                         roundNumber++;
                     };
                     round.innerText = roundNumber;
+                    updateScoreTable();
                     break;
 
                 default:
@@ -200,20 +181,53 @@ function playRound(computerChoice, playerChoice) {
     }
 }
 
+function updateScoreTable() {
+    adversaryWins.innerText = computerWins;
+    draws.innerText = draw;
+    userWins.innerText = playerWins;
+}
+
 function winner(computerWins, playerWins) {
     // CHECKS FOR WINNER
     if (computerWins > playerWins) {
         tableHead.innerText = "Computer WON!";
         tableHead.classList.add("results");
+        makeResetButtonVisible();
     }
     else if (computerWins < playerWins) {
         tableHead.innerText = "You WON!";
         tableHead.classList.add("results");
+        makeResetButtonVisible();
     }
     else if (computerWins == playerWins) {
         tableHead.innerText = "It's a DRAW!";
         tableHead.classList.add("results");
+        makeResetButtonVisible();
     }
+}
+
+function makeResetButtonVisible() {
+    startAgain.classList.add("startAgainVisible");
+    button = document.querySelector(".startAgainVisible")
+    button.addEventListener("click", resetGame);
+}
+
+
+/* Resets integrers to original values before the game started. Assign these values to the table (reset table).
+Reset table head to original values before the game started. Make "Start Again" button invisible again. */
+function resetGame() {
+    roundNumber = 1;
+    computerWins = 0;
+    playerWins = 0;
+    draw = 0;
+    adversaryWins.innerText = computerWins;
+    draws.innerText = draw;
+    userWins.innerText = playerWins;
+    tableHead.innerHTML = "Round <span id='round'></span>/5";
+    let round = document.querySelector("#round");
+    round.innerText = roundNumber;
+    tableHead.classList.remove("results");
+    startAgain.classList.remove("startAgainVisible");
 }
 
 });
