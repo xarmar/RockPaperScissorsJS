@@ -1,5 +1,9 @@
+<!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="/RockPaperScissors.css">
+    <head>
+        <script src="RockPaperScissors.js"></script>
+        <link rel="stylesheet" href="/RockPaperScissors.css">
+    </head>
     <body>
         <div class="flex">
             <img id="logo" src="Rock Paper Scissors.png">
@@ -12,7 +16,7 @@
                 <div class="userChoice"id="scissors"> Scissors</span> </div>
             </div>
             <div class = tracker>
-                <p> Round <span id="round"></span>/5</p>
+                <p id="tableHead"> Round <span id="round"></span>/5</p>
                 <table>
                     <thead>
                         <tr>
@@ -35,9 +39,8 @@
         <div class ="feedbackContainer">
             <div class="feedback"></div>
         </div>
-
-
-
+        <div class="startAgain">
+           <p> PLAY AGAIN </p>
+        </div>
     </body>
-    <script src="RockPaperScissors.js"></script>
-</html>
+    </html>

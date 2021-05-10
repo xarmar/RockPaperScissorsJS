@@ -1,14 +1,17 @@
+document.addEventListener("DOMContentLoaded", function () {
+
+
 //Keeps Track of Rounds
 let roundNumber = 1;
-const round = document.querySelector("#round");
+let round = document.querySelector("#round");
 round.innerText = roundNumber;
 
-// Keep Track of Wins
+// Keep Track of Wins and Draws
 let computerWins = 0;
 let playerWins = 0;
 let draw = 0;
 
-//Listens for image hover
+//Hover Animation For Logo
 const logo = document.querySelector("#logo");
 logo.addEventListener("mouseenter", gif);
 logo.addEventListener("mouseleave", png);
@@ -22,12 +25,8 @@ function png() {
     logo.src = "Rock Paper Scissors.png";
 }
 
-
-// Listens for "clicks" on Rock, Paper, Scissors elements.
-const userChoice = document.querySelectorAll(".userChoice");
-const options = Array.from(userChoice);
-
 // Table that tracks wins and draws
+const tableHead = document.querySelector("#tableHead");
 const adversaryWins = document.querySelector("#adversaryWins");
 adversaryWins.innerText = computerWins;
 const draws = document.querySelector("#draws");
@@ -35,29 +34,69 @@ draws.innerText = draw;
 const userWins = document.querySelector("#userWins");
 userWins.innerText = playerWins;
 
-// Feedback Div that shows result of rounds
+
+// Feedback Div that shows the result of each round
 const feedback = document.querySelector(".feedback");
 const feedbackContainer = document.querySelector(".feedbackContainer");
-const winnerContainer = document.querySelector(".winnerContainer");
+// Play Button Div
+const startAgain = document.querySelector(".startAgain");
 
 
+// Listen for "clicks" on Rock, Paper, Scissors elements and run "initiateRound" on Click.
+const userChoice = document.querySelectorAll(".userChoice");
+const options = Array.from(userChoice);
 options.forEach(option => 
     option.addEventListener("click", initiateRound)
 );
 
 function initiateRound(e) {
+    if (feedbackContainer.classList.contains("opacityAnimation")) {
+        remove();
+    }
+    if (roundNumber == 4) {
+        tableHead.innerText = "Last Round!";
+    }
     let userPick = e.toElement.id;
     let playerChoice = userPlay(userPick);
     let computerChoice = computerPlay();
     playRound(computerChoice, playerChoice);
-    feedbackContainer.classList.add("opacityanimation");
+    if (roundNumber < 6) {
+    feedbackContainer.classList.add("opacityAnimation");
+    feedbackContainer.addEventListener('animationend', remove);
+    }
+    //Update Score Table
     adversaryWins.innerText = computerWins;
     draws.innerText = draw;
     userWins.innerText = playerWins;
+    // Remove class "opacityanimation"
     if (roundNumber === 6) {
         winner(computerWins, playerWins);
+        startAgain.classList.add("startAgainVisible");
+        button = document.querySelector(".startAgainVisible")
+        button.addEventListener("click", reset);
     }
 }
+
+function remove() {
+    feedbackContainer.classList.remove("opacityAnimation");
+}
+
+function reset() {
+    roundNumber = 1;
+    computerWins = 0;
+    playerWins = 0;
+    draw = 0;
+    adversaryWins.innerText = computerWins;
+    draws.innerText = draw;
+    userWins.innerText = playerWins;
+    tableHead.innerHTML = "Round <span id='round'></span>/5";
+    let round = document.querySelector("#round");
+    round.innerText = roundNumber;
+    tableHead.classList.remove("results");
+    startAgain.classList.remove("startAgainVisible");
+    console.log(startAgain);
+}
+
 
 function userPlay(userPick) {
     if (userPick.toUpperCase() === "ROCK") {
@@ -94,66 +133,69 @@ function computerPlay() {
 
 // TRACKS ROUND WINNERS
 function playRound(computerChoice, playerChoice) {
-    if (playerChoice === computerChoice) {
-        console.log("It's a draw!")
-        draw++;
-        roundNumber++;
-        round.innerText = roundNumber;
-    }
-    else {
-        console.log(playerChoice + " " + computerChoice);
-        switch (playerChoice + " " + computerChoice) {
-            case "Rock Paper":
-                feedbackContainer.classList.remove("opacityanimation");
-                console.log(feedbackContainer.classList.contains("opacityanimation"));
-                feedback.innerText = "Round " + roundNumber + " You lost! Paper beats Rock!";
-                computerWins++;
+    if (roundNumber < 6) {
+        if (playerChoice === computerChoice) {
+            feedback.innerText = "Round " + roundNumber + ": It's a draw!";
+            draw++;
+            if (roundNumber < 6) {
                 roundNumber++;
-                round.innerText = roundNumber;
-                break;
-            case "Rock Scissors":
-                feedbackContainer.classList.remove("opacityanimation");
-                console.log(feedbackContainer.classList.contains("opacityanimation"))
-                feedback.innerText = "Round " + roundNumber + ": You won! Rock beats Scissors!";
-                playerWins++;
-                roundNumber++;
-                round.innerText = roundNumber;
-                break;
-            case "Paper Rock":
-                feedbackContainer.classList.remove("opacityanimation");
-                console.log(feedbackContainer.classList.contains("opacityanimation"))
-                feedback.innerText = "Round " + roundNumber + ": You won! Paper beats Rock!";
-                playerWins++;
-                roundNumber++;
-                round.innerText = roundNumber;
-                break;
-            case "Paper Scissors":
-                feedbackContainer.classList.remove("opacityanimation");
-                console.log(feedbackContainer.classList.contains("opacityanimation"))
-                feedback.innerText = "Round " + roundNumber + ": You lost! Scissors beats Paper";
-                computerWins++;
-                roundNumber++;
-                round.innerText = roundNumber;
-                break;
-            case "Scissors Rock":
-                feedbackContainer.classList.remove("opacityanimation");
-                console.log(feedbackContainer.classList.contains("opacityanimation"))
-                feedback.innerText = "Round " + roundNumber + ": You lost! Rock beats Scissors";
-                computerWins++;
-                roundNumber++;
-                round.innerText = roundNumber;
-                break;
-            case "Scissors Paper":
-                feedbackContainer.classList.remove("opacityanimation");
-                console.log(feedbackContainer.classList.contains("opacityanimation"))
-                feedback.innerText = "Round " + roundNumber +  ": You won! Scissors beats Paper";
-                playerWins++;
-                roundNumber++;
-                round.innerText = roundNumber;
-                break;
+            };
+            round.innerText = roundNumber;
+        }
+        else {
+            switch (playerChoice + " " + computerChoice) {
+                case "Rock Paper":
+                    feedback.innerText = "Round " + roundNumber + ": You lost! Paper beats Rock!";
+                    computerWins++;
+                    if (roundNumber < 6) {
+                        roundNumber++;
+                    }
+                    round.innerText = roundNumber;
+                    break;
+                case "Rock Scissors":
+                    feedback.innerText = "Round " + roundNumber + ": You won! Rock beats Scissors!";
+                    playerWins++;
+                    if (roundNumber < 6) {
+                        roundNumber++;
+                    };
+                    round.innerText = roundNumber;
+                    break;
+                case "Paper Rock":
+                    feedback.innerText = "Round " + roundNumber + ": You won! Paper beats Rock!";
+                    playerWins++;
+                    if (roundNumber < 6) {
+                        roundNumber++;
+                    };
+                    round.innerText = roundNumber;
+                    break;
+                case "Paper Scissors":
+                    feedback.innerText = "Round " + roundNumber + ": You lost! Scissors beats Paper";
+                    computerWins++;
+                    if (roundNumber < 6) {
+                        roundNumber++;
+                    };
+                    round.innerText = roundNumber;
+                    break;
+                case "Scissors Rock":
+                    feedback.innerText = "Round " + roundNumber + ": You lost! Rock beats Scissors";
+                    computerWins++;
+                    if (roundNumber < 6) {
+                        roundNumber++;
+                    };
+                    round.innerText = roundNumber;
+                    break;
+                case "Scissors Paper":
+                    feedback.innerText = "Round " + roundNumber +  ": You won! Scissors beats Paper";
+                    playerWins++;
+                    if (roundNumber < 6) {
+                        roundNumber++;
+                    };
+                    round.innerText = roundNumber;
+                    break;
 
-            default:
-                console.log("ERROR");
+                default:
+                    console.log("ERROR");
+            }
         }
     }
 }
@@ -161,21 +203,17 @@ function playRound(computerChoice, playerChoice) {
 function winner(computerWins, playerWins) {
     // CHECKS FOR WINNER
     if (computerWins > playerWins) {
-        winner.innerText = "Computer WON!";
-        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
-        console.log(`Player WON ${playerWins} round(s) out of 5.`);
-
+        tableHead.innerText = "Computer WON!";
+        tableHead.classList.add("results");
     }
     else if (computerWins < playerWins) {
-        winner.innerText = "You WON!";
-        console.log(`Player WON ${playerWins} round(s) out of 5.`);
-        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+        tableHead.innerText = "You WON!";
+        tableHead.classList.add("results");
     }
     else if (computerWins == playerWins) {
-        winner.innerText = "It's a DRAW!";
-        console.log(`Player WON ${playerWins} round(s) out of 5.`);
-        console.log(`Computer WON ${computerWins} round(s) out of 5.`);
+        tableHead.innerText = "It's a DRAW!";
+        tableHead.classList.add("results");
     }
 }
 
-
+});

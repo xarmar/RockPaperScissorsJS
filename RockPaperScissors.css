@@ -25,7 +25,7 @@ body {
 }
 
 .middleContainer {
-    margin: 5% 20% 5% 20%;
+    margin: 2% 20% 2% 20%;
     display: flex;
     flex-direction: row;
     justify-items: center;
@@ -57,7 +57,7 @@ body {
     text-align: center;
     margin: 5px 15px 10px 5px;
     padding: 1%;
-    max-width: 100%%;
+    max-width: 100%;
     border: 3px solid #048A81;
 }
 
@@ -79,6 +79,7 @@ body {
 .feedbackContainer {
     opacity: 0%;
     margin-top: 5%;
+    margin-bottom: 0px;
     width: 50%;
     padding: 1%;
     background-color: #048A81;
@@ -92,8 +93,7 @@ body {
 
 .opacityAnimation {
     animation-name: opacity;
-    animation-duration: 4.5s;
-    animation-iteration-count: 1s;
+    animation-duration: 1.6s;
 }
 
 @keyframes opacity {
@@ -119,13 +119,14 @@ body {
 }
 
 .tracker p {
+    border: 1px solid transparent;
     font-size: 120%;
     margin: 0px 0px 10px 0px;
     width: max-content;
     padding: 5px 10px 5px 10px;
     background-color: #536d5d;
 }
-
+x
 
 table {
     flex-direction: column;
@@ -135,4 +136,47 @@ table {
 tr > th {
     background-color: #536d5d;
     padding: 15px 10px 15px 10px;
+}
+
+.results {
+    animation-name: resultsAnimation;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes resultsAnimation {
+    0% {
+        border-top: 1px yellow solid;
+        border-right: 1px #048A81 solid;
+        border-bottom: 1px yellow solid;
+        border-left: 1px #048A81 solid;
+    }
+    50% {
+        border-top: 1px #048A81 solid;
+        border-right: 1px yellow solid;
+        border-bottom: 1px #048A81 solid;
+        border-left: 1px yellow solid;        
+    }
+
+    100% {}
+}
+
+.startAgain {
+    opacity: 0%;
+    text-align: center;
+    max-width: 10%;
+    padding: 2px;
+    background-color: #048A81;
+    margin-top: 0px;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.startAgainVisible {
+    opacity: 100%;
+}
+
+.startAgainVisible:hover {
+    background: darkmagenta;
+    cursor: pointer;
 }
