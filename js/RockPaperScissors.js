@@ -16,12 +16,12 @@ logo.addEventListener("mouseenter", gif);
 logo.addEventListener("mouseleave", png);
 
 function gif() {
-    logo.src = "Rock Paper Scissors.gif";
+    logo.src = "images/Rock Paper Scissors.gif";
 }
 
 function png() {
     console.log("left");
-    logo.src = "Rock Paper Scissors.png";
+    logo.src = "images/Rock Paper Scissors.png";
 }
 
 // Table that tracks wins and draws
