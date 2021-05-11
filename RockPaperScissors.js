@@ -50,7 +50,7 @@ options.forEach(option =>
 
 function initiateRound(e) {
     if (feedbackContainer.classList.contains("opacityAnimation")) {
-        remove();
+        removeOpacityAnimation();
     }
     if (roundNumber == 4) {
         tableHead.innerText = "Last Round!";
