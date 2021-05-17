@@ -20,7 +20,6 @@ function gif() {
 }
 
 function png() {
-    console.log("left");
     logo.src = "images/Rock Paper Scissors.png";
 }
 
