@@ -55,6 +55,7 @@ body {
 }
 
 .userChoice {
+    color: white;
     background-color: #2D3047;
     text-align: center;
     margin: 5px 15px 10px 15px;
