@@ -4,6 +4,6 @@
 
 # What I Learned
 - How to generate random computer "choices" with Math.floor() and Math.random().
-- - DOM manipulation.
+- DOM manipulation.
 
 
